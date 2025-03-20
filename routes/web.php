@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [AuthController::class,'login'])->name('auth.login');
-Route::delete('/logout', [AuthController::class,'logout'])->name('auth.logout');
-Route::post('/login', [AuthController::class,'dologin']);
+
 
 // ROUTE DU PARTIE CLIENT
 Route::prefix('/')->name('')->group(function () {
@@ -39,7 +37,7 @@ Route::prefix('/')->name('')->group(function () {
 //ROUTE POUR LA PARTIE ADMIN
 Route::prefix('/admin')->name('admin.')->group(function () {
 
-    Route::get('/produits', [ProduitsController::class, 'index'])->name('produits')->middleware('auth');;
+    Route::get('/produits', [ProduitsController::class, 'index'])->name('produits');
     Route::get('/produits/add', [ProduitsController::class, 'create'])->name('addProduits');
     Route::post('/produits/save', [ProduitsController::class, 'store'])->name('saveProduits');
     Route::delete('/produits/delete/{id}', [ProduitsController::class, 'destroy'])->name('deleteProduits');
