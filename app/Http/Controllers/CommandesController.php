@@ -26,11 +26,15 @@ class CommandesController extends BaseController
 
     public function create()
     {
-
-
         $commande = new Commandes();
         return view('commandes',compact('commande'));
     }
+    public function edit(string $id)
+    {
+        $commandes = Commandes::findOrFail($id);
+        return view('admin.commandes', compact('commandes'));
+    }
+
     public function update(Request $request)
     {
         $result = $request->validate([
@@ -53,7 +57,7 @@ class CommandesController extends BaseController
 
 
         $commande->save();
-        return redirect('admin.commandes')->with('success', 'Étudiant modifié avec succès');
+        return redirect('admin.commandes');
     }
 
 
@@ -63,11 +67,7 @@ class CommandesController extends BaseController
 
 
 
-    public function edit(string $id)
-    {
-        $commandes = Commandes::findOrFail($id);
-        return view('admin.commandes', compact('commandes'));
-    }
+
 
     public function destroy(string $id)
     {
@@ -82,7 +82,7 @@ class CommandesController extends BaseController
     {
         // Validation des données
 
-        $subject = 'Confirmation de commande';
+        $subject = 'Commande';
 
         $validated = $request->validate([
             'prenom_nom' => 'required|string|max:255',

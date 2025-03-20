@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use Illuminate\Support\Facades\Auth; @endphp
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,15 +28,16 @@
         <li><a href="#"><i class="bx bx-envelope"></i> Mails</a></li>
 
 
-
-
     </ul>
     <ul class="side-menu">
         <li>
+            
+
             <a href="#" class="logout">
                 <i class='bx bx-log-out-circle'></i>
                 Logout
             </a>
+
         </li>
     </ul>
 </div>
@@ -52,12 +54,10 @@
                 <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
             </div>
         </form>
+
         <input type="checkbox" id="theme-toggle" hidden>
         <label for="theme-toggle" class="theme-toggle"></label>
-        <a href="#" class="notif">
-            <i class='bx bx-bell'></i>
-            <span class="count">0</span>
-        </a>
+
 
     </nav>
 @yield('content')

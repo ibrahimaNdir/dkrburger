@@ -191,23 +191,10 @@
 
                             <div class="price">
                                 {{ $article['prix'] }} FCFA
-                                <button> <ion-icon name="cart-outline"></ion-icon></button>
-
+                                <button class="add-to-cart" data-id="{{ $article['id'] }}" id="addToCartBtn">
+                                    <ion-icon name="cart-outline"></ion-icon>
+                                </button>
                             </div>
-                            {{--
-                              <form action="{{ route('ajouter.panier') }}" method="post" class="form">
-                                @csrf
-                                <input type="hidden" class="nom" value="{{ $article['designation'] }}" name="article_designation">
-                                <input type="hidden" class="desc" value="{{ $article['descriptions'] }}" name="article_desc">
-                                <input type="hidden" class="prix" value="{{ $article['prixunitaire'] }}" name="article_prix">
-                                <input type="hidden" class="id" value="{{ $article['idarticle'] }}" name="article_id">
-
-                                <button type="submit"><ion-icon name="bag-handle-outline"></ion-icon></button>
-                            </form>
-
-                             --}}
-
-
                         </div>
                     </div>
                 </div>
@@ -399,9 +386,8 @@
         </div>
     </div>
 </footer>
-<!-- footer section -->
 
-<!-- jQery -->
+
 <script src="js/jquery-3.4.1.min.js"></script>
 <!-- popper js -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -420,6 +406,65 @@
 <script src="js/custom.js"></script>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js">
     <script src="https://kit.fontawesome.com/1462be1371.js" crossorigin="anonymous"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+<!-- popper js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<!-- bootstrap js -->
+<script src="js/bootstrap.js"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+</script>
+<!-- isotope js -->
+<script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+<!-- custom js -->
+<script src="js/custom.js"></script>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js">
+    <script src="https://kit.fontawesome.com/1462be1371.js" crossorigin="anonymous"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.add-to-cart').click(function(e) {
+            e.preventDefault();
+
+            var produitId = $(this).data('id');
+            var productQuantity = $(this).siblings(".product-quantity").val();
+
+            $.ajax({
+                url: '{{ route("ajouterpanier") }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'produit_id': produitId,
+                    'quantite': productQuantity
+                },
+                success: function(response) {
+                    // Mettre à jour le compteur de panier si nécessaire
+                    if (response.panierCount) {
+                        $('#panier-count').text(response.panierCount);
+                    }
+
+                    // Afficher un message de confirmation
+                    alert('Produit ajouté au panier');
+                },
+                error: function(xhr) {
+                    alert('Erreur lors de l\'ajout au panier');
+                }
+            });
+        });
+    });
+
+</script>
 
 
 

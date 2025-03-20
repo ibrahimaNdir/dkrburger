@@ -56,21 +56,6 @@
                                     <ion-icon name="cart-outline"></ion-icon>
                                 </button>
                             </div>
-
-                            {{--
-                              <form action="{{ route('ajouter.panier') }}" method="post" class="form">
-                                @csrf
-                                <input type="hidden" class="nom" value="{{ $article['designation'] }}" name="article_designation">
-                                <input type="hidden" class="desc" value="{{ $article['descriptions'] }}" name="article_desc">
-                                <input type="hidden" class="prix" value="{{ $article['prixunitaire'] }}" name="article_prix">
-                                <input type="hidden" class="id" value="{{ $article['idarticle'] }}" name="article_id">
-
-                                <button type="submit"><ion-icon name="bag-handle-outline"></ion-icon></button>
-                            </form>
-
-                             --}}
-
-
                         </div>
                     </div>
                 </div>
@@ -158,7 +143,7 @@
     </div>
 </footer>
 
-!-- jQery -->
+
 <script src="js/jquery-3.4.1.min.js"></script>
 <!-- popper js -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

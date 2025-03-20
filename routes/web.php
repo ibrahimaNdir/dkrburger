@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\DetailsCommandesController;
 use App\Http\Controllers\PanierController;
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', [AuthController::class,'login'])->name('auth.login');
+Route::delete('/logout', [AuthController::class,'logout'])->name('auth.logout');
+Route::post('/login', [AuthController::class,'dologin']);
+
 // ROUTE DU PARTIE CLIENT
 Route::prefix('/')->name('')->group(function () {
     Route::get('/', [ProduitsController::class, 'indexbis'])->name('accueil');
@@ -33,7 +39,7 @@ Route::prefix('/')->name('')->group(function () {
 //ROUTE POUR LA PARTIE ADMIN
 Route::prefix('/admin')->name('admin.')->group(function () {
 
-    Route::get('/produits', [ProduitsController::class, 'index'])->name('produits');
+    Route::get('/produits', [ProduitsController::class, 'index'])->name('produits')->middleware('auth');;
     Route::get('/produits/add', [ProduitsController::class, 'create'])->name('addProduits');
     Route::post('/produits/save', [ProduitsController::class, 'store'])->name('saveProduits');
     Route::delete('/produits/delete/{id}', [ProduitsController::class, 'destroy'])->name('deleteProduits');
