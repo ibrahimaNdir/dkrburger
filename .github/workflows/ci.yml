@@ -2,9 +2,9 @@ name: CI Laravel
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ ndir_ibrahima_burger, develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ ndir_ibrahima_burger, develop ]
 
 jobs:
   laravel-tests:
