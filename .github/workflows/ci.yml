@@ -18,7 +18,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
         ports:
-          - 5432:5432
+          - 5433:5432  # Exposer le port 5432 de PostgreSQL sur le port 5433 de l'hôte
         options: >-
           --health-cmd="pg_isready"
           --health-interval=10s
