@@ -1,0 +1,77 @@
+name: CI Laravel
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: dkrburger
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: admin
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v3
+
+      - name: 🔧 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo_pgsql
+          coverage: none
+
+      - name: 📦 Installer les dépendances Composer
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: ⚙️ Copier le fichier .env
+        run: cp .env.example .env
+
+      - name: 🔑 Générer la clé de l'application
+        run: php artisan key:generate
+
+      - name: 🔄 Lancer les migrations
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5433
+          DB_DATABASE: dkrburger
+          DB_USERNAME: postgres
+          DB_PASSWORD: admin
+        run: php artisan migrate --force
+
+      - name: ✅ Lancer les tests
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5433
+          DB_DATABASE: dkrburger
+          DB_USERNAME: postgres
+          DB_PASSWORD: admin
+        run: php artisan test
+
+  docker-build:
+    needs: laravel-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v3
+
+      - name: 🐳 Build de l'image Docker
+        run: docker build -t laravel-app-ci .
