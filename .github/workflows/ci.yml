@@ -56,22 +56,22 @@ jobs:
 
       - name: 🔄 Lancer les migrations
         env:
-          DB_CONNECTION: pgsql
-          DB_HOST: postgres
-          DB_PORT: 5433
-          DB_DATABASE: dkrburger
-          DB_USERNAME: postgres
-          DB_PASSWORD: admin
+            DB_CONNECTION: pgsql
+            DB_HOST: 127.0.0.1  # Utilisez 127.0.0.1 au lieu de postgres
+            DB_PORT: 5433       # Le port que vous exposez
+            DB_DATABASE: dkrburger
+            DB_USERNAME: postgres
+            DB_PASSWORD: admin
         run: php artisan migrate --force
 
       - name: ✅ Lancer les tests
         env:
-          DB_CONNECTION: pgsql
-          DB_HOST: postgres
-          DB_PORT: 5433
-          DB_DATABASE: dkrburger
-          DB_USERNAME: postgres
-          DB_PASSWORD: admin
+            DB_CONNECTION: pgsql
+            DB_HOST: 127.0.0.1  # Utilisez 127.0.0.1 au lieu de postgres
+            DB_PORT: 5433       # Le port que vous exposez
+            DB_DATABASE: dkrburger
+            DB_USERNAME: postgres
+            DB_PASSWORD: admin
         run: php artisan test
 
   # Ce job ne s'exécute QUE si laravel-tests passe ✅
