@@ -18,7 +18,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
         ports:
-          - 5432:5432
+          - 5433:5432  # interne:externe
         options: >-
           --health-cmd="pg_isready"
           --health-interval=10s
@@ -48,8 +48,8 @@ jobs:
       - name: 🔄 Lancer les migrations
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5433
+          DB_HOST: postgres         # ✅ Fix ici
+          DB_PORT: 5432             # ✅ port interne du service
           DB_DATABASE: dkrburger
           DB_USERNAME: postgres
           DB_PASSWORD: admin
@@ -58,13 +58,14 @@ jobs:
       - name: ✅ Lancer les tests
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5433
+          DB_HOST: postgres         # ✅ Fix ici
+          DB_PORT: 5432
           DB_DATABASE: dkrburger
           DB_USERNAME: postgres
           DB_PASSWORD: admin
         run: php artisan test
 
+  # 🚀 Build docker seulement si les tests réussissent
   docker-build:
     needs: laravel-tests
     runs-on: ubuntu-latest
