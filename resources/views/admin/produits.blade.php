@@ -27,26 +27,12 @@
                         <p>Paid Order</p>
                     </span>
                 </li>
-                <li><i class='bx bx-show-alt'></i>
-                    <span class="info">
-                        <h3>
-                            3,944
-                        </h3>
-                        <p>Site Visit</p>
-                    </span>
-                </li>
-                <li><i class='bx bx-line-chart'></i>
-                    <span class="info">
-                        <h3>
-                            14,721
-                        </h3>
-                        <p>Searches</p>
-                    </span>
-                </li>
+
+
                 <li><i class='bx bx-dollar-circle'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            100 000 Fcfa
                         </h3>
                         <p>Total Sales</p>
                     </span>

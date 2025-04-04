@@ -42,7 +42,7 @@ class CommandesController extends BaseController
             'telephone' => 'required',
             'email' => 'required',
             'adresse' => 'required',
-            'statue' => 'required',
+            'statut' => 'required',
 
         ]);
 
@@ -57,7 +57,8 @@ class CommandesController extends BaseController
 
 
         $commande->save();
-        return redirect('admin.commandes');
+        return redirect()->route('admin.commandes');
+
     }
 
 
@@ -130,7 +131,7 @@ class CommandesController extends BaseController
             }
 
             $details = DetailsCommandes::where('commandes_id', $commande->id)->get();
-            Mail::to('ibrahimandir2410@gmail.com')->send(new Email($commande, $details,$subject));
+            Mail::to('morn5574@gmail.com')->send(new Email($commande, $details,$subject));
 
             // Valider la transaction
             DB::commit();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produits;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -14,8 +15,15 @@ class ProduitsController extends BaseController
 
     public function index()
     {
+        /*User::create([
+            'name' => 'papi',
+            'email' => 'pi@gmail.com',
+            'password' => bcrypt('passer'),
+        ]);*/
         $produits= Produits::all();
         return view('admin.produits',compact('produits'));
+
+
 
     }
 

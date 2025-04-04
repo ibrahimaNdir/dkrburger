@@ -8,8 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <title>Responsive Dashboard Design #2 | AsmrProg</title>
-    @vite(['resources/css/app.css',
-                      'resources/css/adminproduits/style.css',
+    @vite(['resources/css/adminproduits/style.css',
                       'resources/js/admin/index.js'])
 </head>
 <body>
@@ -31,7 +30,11 @@
     </ul>
     <ul class="side-menu">
         <li>
-            
+            <form class="form" method="post" action="{{route('auth.logout')}}">
+                @method("delete")
+                @csrf
+                <button class="bin">Se Deconecter </button>
+            </form>
 
             <a href="#" class="logout">
                 <i class='bx bx-log-out-circle'></i>
@@ -54,6 +57,13 @@
                 <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
             </div>
         </form>
+
+
+
+
+        @guest
+            <a href="{{ route('auth.login') }}" class="login-btn">Se Connecter</a>
+        @endguest
 
         <input type="checkbox" id="theme-toggle" hidden>
         <label for="theme-toggle" class="theme-toggle"></label>

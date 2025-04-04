@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends BaseController
+class AuthController extends Controller
+
 {
-    use AuthorizesRequests, ValidatesRequests;
 
     public  function logout(){
         Auth::logout();
@@ -21,14 +19,19 @@ class AuthController extends BaseController
         return view('auth.login');
     }
 
-    public function dologin (Request $request){
+    public function dologin ( Request $request){
 
-        $credentials = $request->validated();
+        $credentials =   $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'min:4|max:255',
 
+            ]
+        );
         if (Auth::attempt($credentials)) {   //si la connexion passe
             $request->session()->regenerate();
 
-            return redirect()->intended('');
+            return redirect()->intended('admin/produits');
         }
         return to_route('auth.login')->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -36,4 +39,5 @@ class AuthController extends BaseController
         ]);
 
     }
+    //
 }

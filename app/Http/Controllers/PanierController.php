@@ -30,7 +30,7 @@ class PanierController extends BaseController
             return response()->json(['error' => 'Produit non trouvé'], 404);
         }
 
-        // Récupérer le panier depuis la session
+
         $panier = session()->get('panier', []);
 
         // Vérifier si le produit existe déjà dans le panier
