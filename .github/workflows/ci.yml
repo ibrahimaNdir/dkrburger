@@ -18,7 +18,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
         ports:
-          - 5433:5432  # interne:externe
+          - 5432:5432
         options: >-
           --health-cmd="pg_isready"
           --health-interval=10s
@@ -45,11 +45,20 @@ jobs:
       - name: 🔑 Générer la clé de l'application
         run: php artisan key:generate
 
+      - name: 🕒 Attendre que PostgreSQL soit prêt
+        run: |
+          echo "⏳ Attente de PostgreSQL..."
+          for i in {1..10}; do
+            nc -z postgres 5432 && echo "✅ PostgreSQL est prêt !" && break
+            echo "🔁 En attente ($i/10)..."
+            sleep 5
+          done
+
       - name: 🔄 Lancer les migrations
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: postgres         # ✅ Fix ici
-          DB_PORT: 5432             # ✅ port interne du service
+          DB_HOST: postgres
+          DB_PORT: 5432
           DB_DATABASE: dkrburger
           DB_USERNAME: postgres
           DB_PASSWORD: admin
@@ -58,14 +67,14 @@ jobs:
       - name: ✅ Lancer les tests
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: postgres         # ✅ Fix ici
+          DB_HOST: postgres
           DB_PORT: 5432
           DB_DATABASE: dkrburger
           DB_USERNAME: postgres
           DB_PASSWORD: admin
         run: php artisan test
 
-  # 🚀 Build docker seulement si les tests réussissent
+  # Ce job ne s'exécute QUE si laravel-tests passe ✅
   docker-build:
     needs: laravel-tests
     runs-on: ubuntu-latest
