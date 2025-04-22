@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+@extends('admin.sidebar')
+
+@section('content')
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -41,6 +44,7 @@
         }
     </style>
 </head>
+
 
 <body id="page-top">
 <div id="wrapper">
@@ -169,3 +173,4 @@
 </script>
 </body>
 </html>
+@endsection

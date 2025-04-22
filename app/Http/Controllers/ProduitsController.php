@@ -14,6 +14,7 @@ class ProduitsController extends BaseController
 
 
     public function index()
+
     {
         /*User::create([
             'name' => 'papi',
@@ -100,11 +101,10 @@ class ProduitsController extends BaseController
         $produit ->nom = $request['nom'];
         $produit ->description = $request['description'];
         $produit ->prix = $request['prix'];
-        $produit ->quantite = $request['quantite'];
-        $produit ->images = $request['image'];
+        $produit ->image = $request['image'];
 
         $produit ->save();
-        return redirect('admin.produits')->with('success','Le Programme est  modifie avec succes');
+        return redirect('admin/produits')->with('success','Le Programme est  modifie avec succes');
     }
 
     /**

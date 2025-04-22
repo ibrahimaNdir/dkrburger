@@ -45,8 +45,8 @@
                     <div class="header">
                         <i class='bx bx-receipt'></i>
                         <h3>Nos Burgers </h3>
-                        <a href="{{route('admin.addProduits')}}" >
-                            <i class='bx bx-plus'></i>
+                        <a href="{{route('admin.addProduits')}}">
+                            <i class='bx bx-plus'></i> Ajouter
                         </a>
                     </div>
                     <table>
@@ -66,7 +66,7 @@
                                 <td>{{$e->description}}</td>
                                 <td>{{$e->prix}}</td>
                                 <td>
-                                    <img src="{{ asset('storage/images/'. $e->image) }}  " width="500" >
+                                    <img src="{{ asset('image/'. $e->image) }}  " width="500" >
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">

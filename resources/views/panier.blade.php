@@ -41,7 +41,7 @@
                     @php $total += $item['prix'] * $item['quantite'] @endphp
 
                     <div class="cart-item" data-id="{{ $id }}">
-                        <img src="{{ asset('storage/images/'.$item['image']) }}" alt="{{ $item['nom'] }}" class="item-image">
+                        <img src="{{ asset('image/'.$item['image']) }}" alt="{{ $item['nom'] }}" class="item-image">
 
                         <div class="item-details">
                             <div class="item-title">{{ $item['nom'] }}</div>

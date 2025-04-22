@@ -131,7 +131,7 @@ class CommandesController extends BaseController
             }
 
             $details = DetailsCommandes::where('commandes_id', $commande->id)->get();
-            Mail::to('morn5574@gmail.com')->send(new Email($commande, $details,$subject));
+            Mail::to('papeibrahima2000@gmail.com')->send(new Email($commande, $details,$subject));
 
             // Valider la transaction
             DB::commit();

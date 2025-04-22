@@ -31,7 +31,7 @@
 
 <div class="hero_area">
     <div class="bg-box">
-        <img src=" {{ asset('storage/images/hero-bg.jpg') }}" alt="">
+        <img src=" {{ asset('image/hero-bg.jpg') }}" alt="">
     </div>
     <!-- header section strats -->
     @include('navbar')
@@ -130,10 +130,10 @@
                 <div class="col-md-6  ">
                     <div class="box ">
                         <div class="img-box">
-                            <img src="{{ asset('storage/images/f1.png') }}" alt="">
+                            <img src="{{ asset('image/boxfrites.jpg') }}" alt="">
                         </div>
                         <div class="detail-box">
-                            <h5>Tasty Thursdays 🍔</h5>
+                            <h5>Box Burgers + Frites</h5>
                             <h6>Profitez de <span style="color: red; font-weight: bold;">20%</span> de réduction sur tous nos
                                 burgers ce jeudi ! 🎉</h6>
 
@@ -146,16 +146,16 @@
                 <div class="col-md-6  ">
                     <div class="box ">
                         <div class="img-box">
-                            <img src=" {{ asset('storage/images/o2.jpg') }}" alt="">
+                            <img src=" {{ asset('image/box coca.jpg') }}" alt="">
 
                         </div>
                         <div class="detail-box">
-                            <h5>🍕 Pizza Days 🎉</h5>
+                            <h5>Combo Burgers + Coca Cola</h5>
                             <h6>Profitez de <span style="color: red; font-weight: bold;">15%</span> de réduction sur toutes nos
                                 pizzas cette semaine !</h6>
 
                             <a href="">
-                                Order Now
+                                Commandez Maintenant
                             </a>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
             @foreach($produits as $article)
                 <div class="profile">
                     <div class="profile-image">
-                        <img src="{{ asset('storage/images/'.$article['image']) }}" >
+                        <img src="{{ asset('image/'.$article['image']) }}" >
                     </div>
 
                     <div class="profile-name">
@@ -213,7 +213,7 @@
         <div class="row">
             <div class="col-md-6 ">
                 <div class="img-box">
-                    <img src="{{ asset('storage/images/cheese burger.jpg') }}" alt="">
+                    <img src="{{ asset('image/cheese burger.jpg') }}" alt="">
                 </div>
             </div>
             <div class="col-md-6">
@@ -433,32 +433,235 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    // Ajouter les styles nécessaires en CSS via JavaScript
     $(document).ready(function() {
+        // Injecter les styles CSS nécessaires
+        $('head').append(`
+        <style>
+            /* Notification toast */
+            .cart-notification {
+                position: fixed;
+                top: 20px;
+                right: -300px;
+                width: 280px;
+                padding: 15px;
+                background-color: white;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                border-radius: 6px;
+                z-index: 9999;
+                transition: right 0.3s ease;
+                overflow: hidden;
+            }
+
+            .cart-notification.show {
+                right: 20px;
+            }
+
+            .cart-notification.success {
+                border-left: 4px solid #4CAF50;
+            }
+
+            .cart-notification.error {
+                border-left: 4px solid #F44336;
+            }
+
+            .notification-content {
+                display: flex;
+                align-items: center;
+            }
+
+            .notification-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                margin-right: 12px;
+                font-weight: bold;
+            }
+
+            .success .notification-icon {
+                background-color: rgba(76, 175, 80, 0.2);
+                color: #4CAF50;
+            }
+
+            .error .notification-icon {
+                background-color: rgba(244, 67, 54, 0.2);
+                color: #F44336;
+            }
+
+            .notification-message {
+                font-size: 14px;
+                color: #333;
+            }
+
+            .notification-progress {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                width: 100%;
+                background-color: #4CAF50;
+            }
+
+            .error .notification-progress {
+                background-color: #F44336;
+            }
+
+            /* Animation du bouton panier */
+            .add-to-cart {
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .add-to-cart.adding {
+                opacity: 0.7;
+                pointer-events: none;
+            }
+
+            .add-to-cart .cart-spinner {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 16px;
+                height: 16px;
+                border: 2px solid rgba(255,255,255,0.3);
+                border-top-color: #fff;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .add-to-cart.adding .cart-spinner {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .add-to-cart.adding ion-icon {
+                opacity: 0;
+            }
+
+            @keyframes spin {
+                to { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+
+            /* Animation du compteur panier */
+            #panier-count {
+                transition: transform 0.3s ease;
+            }
+
+            #panier-count.pulse {
+                animation: pulse 0.5s ease;
+            }
+
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.3); }
+                100% { transform: scale(1); }
+            }
+        </style>
+    `);
+
+        // Ajouter le spinner à chaque bouton panier
+        $('.add-to-cart').each(function() {
+            $(this).append('<span class="cart-spinner"></span>');
+        });
+
+        // Fonction pour afficher une notification
+        function showNotification(message, type) {
+            // Supprimer toute notification existante
+            $('.cart-notification').remove();
+
+            // Créer la notification
+            const notification = $(`
+            <div class="cart-notification ${type}">
+                <div class="notification-content">
+                    <span class="notification-icon">${type === 'success' ? '✓' : '✕'}</span>
+                    <span class="notification-message">${message}</span>
+                </div>
+                <div class="notification-progress"></div>
+            </div>
+        `);
+
+            // Ajouter au corps du document
+            $('body').append(notification);
+
+            // Afficher la notification
+            setTimeout(function() {
+                notification.addClass('show');
+
+                // Animer la barre de progression
+                notification.find('.notification-progress').animate({
+                    width: '0%'
+                }, 3000);
+
+                // Fermer après 3 secondes
+                setTimeout(function() {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }, 10);
+        }
+
+        // Animer l'icône du panier dans la navbar
+        function animateCartIcon() {
+            const cartIcon = $('#panier-count');
+            cartIcon.addClass('pulse');
+
+            setTimeout(function() {
+                cartIcon.removeClass('pulse');
+            }, 1000);
+        }
+
+        // Gérer le clic sur le bouton "Ajouter au panier"
         $('.add-to-cart').click(function(e) {
             e.preventDefault();
 
-            var produitId = $(this).data('id');
-            var productQuantity = $(this).siblings(".product-quantity").val();
+            var button = $(this);
+            var produitId = button.data('id');
+            var productQuantity = 1; // Par défaut à 1 si input non trouvé
+
+            // Chercher l'input de quantité s'il existe
+            if (button.siblings(".product-quantity").length) {
+                productQuantity = button.siblings(".product-quantity").val();
+            }
+
+            // Ajouter la classe pour l'animation pendant la requête
+            button.addClass('adding');
 
             $.ajax({
-                url: '{{ route("ajouterpanier") }}',
+                url: '{{ route("ajouterpanier") }}', // Utiliser la syntaxe Blade originale
                 method: 'POST',
                 data: {
-                    '_token': '{{ csrf_token() }}',
+                    '_token': '{{ csrf_token() }}', // Utiliser la syntaxe Blade originale
                     'produit_id': produitId,
                     'quantite': productQuantity
                 },
                 success: function(response) {
-                    // Mettre à jour le compteur de panier si nécessaire
+                    // Mettre à jour le compteur de panier
                     if (response.panierCount) {
                         $('#panier-count').text(response.panierCount);
+                        animateCartIcon();
                     }
 
-                    // Afficher un message de confirmation
-                    alert('Produit ajouté au panier');
+                    // Montrer une notification de succès
+                    showNotification('Produit ajouté au panier', 'success');
+
+                    // Enlever la classe d'animation
+                    button.removeClass('adding');
                 },
                 error: function(xhr) {
-                    alert('Erreur lors de l\'ajout au panier');
+                    // Montrer une notification d'erreur
+                    showNotification('Erreur lors de l\'ajout au panier', 'error');
+
+                    // Enlever la classe d'animation
+                    button.removeClass('adding');
                 }
             });
         });
