@@ -1,66 +1,158 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+📑 À propos du projet
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+DKR BURGER est une application web développée avec Laravel qui permet la gestion complète des commandes 
+pour un restaurant de burgers. Le système automatise la gestion des commandes, des paiements et du suivi 
+des livraisons tout en offrant une expérience utilisateur intuitive.
 
-## About Laravel
+✨ Fonctionnalités principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Gestion des Produits
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ajout, modification, archivage et suppression de burgers
+Informations détaillées sur chaque produit (nom, prix, image, description)
+Gestion des stocks avec blocage des commandes en cas de rupture
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Gestion des Commandes
 
-## Learning Laravel
+Interface client pour consulter le catalogue avec filtres (prix, libellé)
+Suivi des commandes pour les clients
+Interface administrateur pour la gestion complète des commandes
+Système de statuts (En attente, En préparation, Prête, Payée)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Paiements :
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Enregistrement des paiements en espèces
+Sécurisation des transactions (paiement unique par commande)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Authentification et Rôles:
 
-## Laravel Sponsors
+Rôle Gestionnaire avec accès complet
+Rôle Client avec accès limité
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Statistiques et Rapports:
 
-### Premium Partners
+Tableaux de bord avec indicateurs clés
+Visualisations graphiques (Chart.js)
+Rapports journaliers et mensuels
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Notifications:
 
-## Contributing
+Emails automatiques de confirmation de commande
+Envoi de factures en PDF
+Alertes pour les nouvelles commandes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+🛠️ Technologies utilisées :
 
-## Code of Conduct
+Framework: Laravel
+Base de données: MySQL
+Frontend: Blade, JavaScript, Bootstrap, Chart.js
+Mail: Laravel Mail avec SMTP
+PDF: Laravel-PDF (DomPDF)
+Conteneurisation: Docker
+CI/CD: GitHub Actions
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+🚀 Installation
+Prérequis
 
-## Security Vulnerabilities
+PHP >= 8.1
+Composer
+MySQL
+Node.js et NPM
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Installation manuelle
 
-## License
+Cloner le dépôt
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bashgit clone https://github.com/ibrahimaNdir/dkrburger
+cd isi-burger
+
+Installer les dépendances
+
+bashcomposer install
+npm install
+npm run build
+
+Configurer l'environnement
+
+bashcp .env.example .env
+php artisan key:generate
+
+Configurer la base de données dans le fichier .env
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=isi_burger
+DB_USERNAME=root
+DB_PASSWORD=
+
+Migrer et alimenter la base de données
+
+bashphp artisan migrate --seed
+
+Lancer le serveur de développement
+
+bashphp artisan serve
+Installation avec Docker
+
+Cloner le dépôt
+
+bashgit clone https://github.com/ibrahimaNdir/dkrburger
+cd isi-burger
+
+Lancer les conteneurs Docker
+
+bashdocker-compose up -d
+
+Installer les dépendances et configurer l'application
+
+bashdocker-compose exec app composer install
+docker-compose exec app php artisan key:generate
+docker-compose exec app php artisan migrate --seed
+🔧 Configuration
+Configuration des emails
+Modifiez votre fichier .env avec vos paramètres SMTP :
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.votreservice.com
+MAIL_PORT=587
+MAIL_USERNAME=votre_username
+MAIL_PASSWORD=votre_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=contact@isiburger.com
+MAIL_FROM_NAME="${APP_NAME}"
+Configuration des PDF
+Le système utilise DomPDF pour générer les factures.
+Aucune configuration supplémentaire n'est nécessaire, mais vous pouvez personnaliser les templates dans resources/views/pdf/.
+👥 Rôles utilisateurs
+Gestionnaire
+
+Email: admin@isiburger.com
+Mot de passe: password
+
+Client (exemple)
+
+Email: client@example.com
+Mot de passe: password
+
+📊
+🔄 CI/CD
+Le projet est configuré avec un pipeline CI/CD via GitHub Actions qui automatise :
+
+Le checkout du code depuis la branche nom_prenom_burger
+L'installation des dépendances Laravel
+La création d'une image Docker
+Le déploiement automatique
+
+📱 Captures d'écran
+Interface client
+Tableau de bord administrateur
+Afficher l'image
+Gestion des commandes
+Afficher l'image
+🧪 Tests
+Le projet comprend des tests unitaires et d'intégration pour assurer la stabilité et la qualité du code.
+Pour exécuter les tests :
+bashphp artisan test
+🤝 Contribution
+Ce projet a été développé par Ibrahima NDIR(π-dev))
+
